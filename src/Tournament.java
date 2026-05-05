@@ -44,5 +44,7 @@ public class Tournament {
         // 5. output final results
         System.out.println("--- Tournament End ---");
         System.out.println("Final Stats for Naru: " + naru);
+
+        naru.saveToFile();
     }
 }
