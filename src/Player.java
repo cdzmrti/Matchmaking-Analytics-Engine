@@ -21,6 +21,23 @@ public class Player {
 
     public void incrementGames() { this.totalGames++; }
 
+    public static double loadElo(String targetName) { // search algorithm to find last known elo for a specific player
+        try(BufferedReader reader = new BufferedReader(new FileReader("players.txt"))){
+            String line;
+            double lastElo = 1200.0; // default if not found
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts[0].equalsIgnoreCase(targetName)) { // if parts[0] (contains name of player) matches targetName
+                    lastElo = Double.parseDouble(parts[1]); // update, take the elo (string) & convert it into a real number (Double.parseDouble)
+                }
+            }
+            return lastElo;
+        } catch (IOException | NumberFormatException e) { // multi-catch syntax
+            return 1200.0; // return default if file doesn't exist yet
+        }
+    }
+
     @Override
     public String toString() {
         return String.format("Player: %s | ELO: %.2f | Games: %d", username, elo, totalGames);
