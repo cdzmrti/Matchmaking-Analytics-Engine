@@ -2,13 +2,17 @@ public class Tournament {
     public static void main(String[] args) {
         // initialize player w/ persistence
         String name = "Naru";
-        double startingElo = Player.loadElo(name);
+        double[] savedData = Player.loadPlayerData(name);
 
         Player naru = new Player(name);
-        naru.setElo(startingElo);
+        naru.setElo(savedData[0]);
+
+        for (int i = 0; i < (int)savedData[1]; i++) { naru.incrementGames(); }
 
         System.out.println("--- Tournament Start ---");
-        System.out.println("Welcome back, " + naru + "! Current Rating: " + naru.getElo());
+        System.out.println("Welcome back, " + name + "!");
+        System.out.println("Current Rating: " + naru.getElo());
+        System.out.println("Total Lifetime Games: " + (int)savedData[1]);
         System.out.println("-------------------------------");
 
         // create an array of opponents w/ different skill levels

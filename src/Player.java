@@ -21,20 +21,22 @@ public class Player {
 
     public void incrementGames() { this.totalGames++; }
 
-    public static double loadElo(String targetName) { // search algorithm to find last known elo for a specific player
+    public static double[] loadPlayerData(String targetName) { // search algorithm to find last known elo for a specific player
         try(BufferedReader reader = new BufferedReader(new FileReader("players.txt"))){
             String line;
             double lastElo = 1200.0; // default if not found
+            double lastGames = 0.0;
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts[0].equalsIgnoreCase(targetName)) { // if parts[0] (contains name of player) matches targetName
                     lastElo = Double.parseDouble(parts[1]); // update, take the elo (string) & convert it into a real number (Double.parseDouble)
+                    lastGames = Double.parseDouble(parts[2]); // parts[2]: number of games played
                 }
             }
-            return lastElo;
-        } catch (IOException | NumberFormatException e) { // multi-catch syntax
-            return 1200.0; // return default if file doesn't exist yet
+            return new double[] {lastElo, lastGames}; //return both values in an array
+        } catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e) { // multi-catch syntax
+            return new double[] {1200.0, 0.0}; // return default if file doesn't exist yet
         }
     }
 
