@@ -1,16 +1,20 @@
 public class Tournament {
     public static void main(String[] args) {
-        // 1. initialize player
-        Player naru = new Player("Naru");
+        // initialize player w/ persistence
+        String name = "Naru";
+        double startingElo = Player.loadElo(name);
 
-        System.err.println("--- Tournament Start ---");
-        System.out.println("Starting Stats: " + naru);
-        System.out.println("-------------------------");
+        Player naru = new Player(name);
+        naru.setElo(startingElo);
 
-        // 2. create an array of opponents w/ different skill levels
+        System.out.println("--- Tournament Start ---");
+        System.out.println("Welcome back, " + naru + "! Current Rating: " + naru.getElo());
+        System.out.println("-------------------------------");
+
+        // create an array of opponents w/ different skill levels
         double[] opponentRatings = {1000, 1100, 1200, 1300, 1500};
 
-        // 3. loop: naru plays each opponent
+        // loop: naru plays each opponent
         for (int i = 0; i < opponentRatings.length; i++) {
             // create a unique opponent for each round
             Player opponent = new Player("Opponent_" + (i + 1));
@@ -41,10 +45,12 @@ public class Tournament {
             System.out.println("------------------------");
         }
 
-        // 5. output final results
+        // output final results
         System.out.println("--- Tournament End ---");
         System.out.println("Final Stats for Naru: " + naru);
 
+        // save new rating back to file
+        // ensures next time prorgam is ran, Naru picks up where they left off
         naru.saveToFile();
     }
 }
