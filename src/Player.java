@@ -21,6 +21,8 @@ public class Player {
 
     public void incrementGames() { this.totalGames++; }
 
+    public void setTotalGames(int totalGames) { this.totalGames = totalGames; }
+
     public static double[] loadPlayerData(String targetName) { // search algorithm to find last known elo for a specific player
         try(BufferedReader reader = new BufferedReader(new FileReader("players.txt"))){
             String line;

@@ -3,11 +3,10 @@ public class Tournament {
         // initialize player w/ persistence
         String name = "Naru";
         double[] savedData = Player.loadPlayerData(name);
-
         Player naru = new Player(name);
-        naru.setElo(savedData[0]);
 
-        for (int i = 0; i < (int)savedData[1]; i++) { naru.incrementGames(); }
+        naru.setElo(savedData[0]);
+        naru.setTotalGames((int)savedData[1]);
 
         System.out.println("--- Tournament Start ---");
         System.out.println("Welcome back, " + name + "!");
