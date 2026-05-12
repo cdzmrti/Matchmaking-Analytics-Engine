@@ -1,5 +1,8 @@
 public class Tournament {
     public static void main(String[] args) {
+        // call initialize so db is ready before using it
+        DatabaseManager.initialize();
+
         // initialize player w/ persistence
         String name = "Naru";
         double[] savedData = Player.loadPlayerData(name);
